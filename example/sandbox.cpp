@@ -1,28 +1,20 @@
-#include <mad/make/all.hpp>
-#include <mad/meta/all.hpp>
+#include "symbolus/all.hpp"
 
 #include <cmath>
 #include <iostream>
 
-using namespace mad::make;
-using namespace mad::meta;
-
-struct a {};
-struct b {};
-struct c {};
-
-auto prerequisites(a) -> list<b>;
-auto prerequisites(b) -> list<c>;
-
-template<typename N>
-void print(control_flow_node<N> n) {
-	constexpr auto ts = N::targets();
-	std::cout << ts << std::endl;
-	if constexpr(!std::is_void_v<N::parent>) {
-		print(N::parent());
-	}
-}
+using namespace sym;
+using namespace sym::notation::partial;
+using namespace sym::notation::p01234;
 
 int main() {
-
+	constexpr auto l = partial < p0;
+	std::cout << is_partial_derivative<decltype(l)>::value << std::endl;
+	constexpr auto r = partial < p1;
+	std::cout << is_partial_derivative<decltype(r)>::value << std::endl;
+	apply(division, l, r);
+	auto e = l / r;
+	std::cout << typeid(l).name() << std::endl;
+	std::cout << typeid(r).name() << std::endl;
+	//std::cout << typeid(e).name() << std::endl;
 }

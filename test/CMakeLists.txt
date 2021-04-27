@@ -2,11 +2,14 @@ add_executable(tests)
 
 target_sources(tests
 PRIVATE
-	"mad/make/control_flow_graph/control_flow_graph.test.cpp"
-	"mad/make/prerequisite/prerequisites.test.cpp"
-	"mad/make/prerequisite/targets_with_prerequisite.test.cpp"
-	"tests.cpp"
-  "mad/make/unevaluated_context/prerequisite.test.cpp" "mad/make/unevaluated_context/targets.test.cpp" "mad/make/family_tree.hpp")
+	${CMAKE_CURRENT_SOURCE_DIR}/symbolus/generic/tuple.test.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/tests.cpp
+	"symbolus/generic/projection.test.cpp"
+	"symbolus/generic/constant.test.cpp"
+	"symbolus/generic/composition.test.cpp"
+	"symbolus/generic/swap.test.cpp"
+	"symbolus/arithmetic/addition.test.cpp"
+)
 
 target_include_directories(tests
 PRIVATE
@@ -15,5 +18,5 @@ PRIVATE
 
 target_link_libraries(tests
 PRIVATE
-	mad
+	symbolus
 )

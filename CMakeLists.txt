@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(made_in_cpp)
+project(symbolus)
 
-add_compile_options(/std:c++latest)
+if(MSVC)
+    add_compile_options(/std:c++latest /W4)
+else()
+    add_compile_options(-std=c++20 -Wall)
+endif()
 
 include_directories(lib)
 
