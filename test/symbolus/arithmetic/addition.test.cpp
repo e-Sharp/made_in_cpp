@@ -34,11 +34,9 @@ TEST_CASE(
 	constexpr auto s = projection<10> + projection<11>;
 	REQUIRE(std::is_same_v<
 		decltype(s),
-		const tuple_application<
-			addition_,
-			std::tuple<
-				const projection_<10>&,
-				const projection_<11>&>>>);
+		const sum_<
+			const projection_<10>&,
+			const projection_<11>&>>);
 }
 
 
@@ -49,17 +47,13 @@ TEST_CASE(
 	constexpr auto ps = addition < projection<10>;
 	REQUIRE(std::is_same_v<
 		decltype(ps),
-		const tuple_application<
-			addition_,
-			std::tuple<
-				const projection_<10>&,
-				const projection_<0>&>>>);
+		const sum_<
+			const projection_<10>&,
+			const projection_<0>&>>);
 	constexpr auto s = ps < projection<11>;
 	REQUIRE(std::is_same_v<
 		decltype(s),
-		const tuple_application<
-			addition_,
-			std::tuple<
-				const projection_<9>&,
-				const projection_<11>&>>>);
+		const sum_<
+			const projection_<9>&,
+			const projection_<11>&>>);
 }

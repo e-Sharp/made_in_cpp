@@ -5,35 +5,36 @@
 namespace sym {
 
 template<typename Type>
-struct constant_ {
-	static_assert(
-		std::is_empty_v<Type>,
-		"Only type constants are currently supported.");
-};
-
-template<typename Type, Type Value>
-struct constant_<std::integral_constant<Type, Value>> {
-	constexpr
-	operator Type() const {
-		return Value;
+struct constant {
+	template<typename... Types> constexpr
+	decltype(auto) operator()(Types&&...) const {
+		return *this;
 	}
+
+	template<typename Tuple> constexpr
+	decltype(auto) operator()(Tuple&&) const {
+		return *this;
+	}
+
+	Type value;
 };
 
-template<typename C>
-constexpr auto constant = constant_<C>();
+template<typename Type>
+constant(Type) -> constant<Type>;
 
 template<typename C, typename Tuple> constexpr
-decltype(auto) apply_tuple(const constant_<C>& c, Tuple&&) {
+decltype(auto) apply_tuple(const constant<C>& c, Tuple&&) {
 	return c;
 }
 
-template<typename T0, T0 V0, typename T1, T1 V1> constexpr
-auto operator+(
-	constant_<std::integral_constant<T0, V0>>,
-	constant_<std::integral_constant<T1, V1>>)
-{
-	return constant<std::integral_constant<
-		decltype(V0 + V1), V0 + V1>>;
+template<typename C0, typename C1> constexpr
+auto operator+(constant<C0> c0, constant<C1> c1) {
+	return constant(c0.value + c1.value);
+}
+
+template<typename C0, typename C1> constexpr
+auto operator*(constant<C0> c0, constant<C1> c1) {
+	return constant(c0.value * c1.value);
 }
 
 }

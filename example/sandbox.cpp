@@ -1,20 +1,15 @@
-#include "symbolus/all.hpp"
+#include "symbolus2/all.hpp"
 
 #include <cmath>
 #include <iostream>
+#include <tuple>
 
 using namespace sym;
-using namespace sym::notation::partial;
-using namespace sym::notation::p01234;
+using namespace sym::notation::c;
+using namespace sym::notation::p;
+
 
 int main() {
-	constexpr auto l = partial < p0;
-	std::cout << is_partial_derivative<decltype(l)>::value << std::endl;
-	constexpr auto r = partial < p1;
-	std::cout << is_partial_derivative<decltype(r)>::value << std::endl;
-	apply(division, l, r);
-	auto e = l / r;
-	std::cout << typeid(l).name() << std::endl;
-	std::cout << typeid(r).name() << std::endl;
-	//std::cout << typeid(e).name() << std::endl;
+	auto t = apply_tuple(apply_tuple(addition, std::tuple(p<0>, p<1>)), std::tuple(p<2>));
+	std::cout << t << std::endl;
 }

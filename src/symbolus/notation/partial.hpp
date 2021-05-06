@@ -4,6 +4,5 @@
 
 namespace sym::notation::partial {
 
-constexpr auto& partial = partial_derivative;
 
 }

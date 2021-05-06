@@ -9,7 +9,7 @@ PRIVATE
 	"symbolus/generic/composition.test.cpp"
 	"symbolus/generic/swap.test.cpp"
 	"symbolus/arithmetic/addition.test.cpp"
-)
+ "symbolus/calculus/partial_derivative.test.cpp" "symbolus/generic/function.test.cpp")
 
 target_include_directories(tests
 PRIVATE
